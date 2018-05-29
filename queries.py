@@ -3,7 +3,6 @@ from seed import Company
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine('sqlite:///dow_jones.db', echo=True)
-
 Session = sessionmaker(bind=engine)
 session = Session()
 
