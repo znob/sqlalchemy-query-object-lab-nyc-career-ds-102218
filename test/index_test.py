@@ -41,7 +41,12 @@ class TestQueries(unittest.TestCase):
         result = ['3M', 'General Electric', 'Johnson & Johnson', 'Merck', 'Pfizer', 'United Technologies']
         self.assertEqual(conglomerceuticals, result)
 
-    def test_return_name_and_industry_of_top_three_EV_companies(self):
-        largest = return_name_and_industry_of_top_three_EV_companies()
-        result = [{'name': 'Apple', 'industry': 'Technology'}, {'name': 'Microsoft', 'industry': 'Technology'}, {'name': 'ExxonMobil', 'industry': 'Oil & gas'}]
-        self.assertEqual(largest, result)
+    def test_count_number_of_tech_companies(self):
+        avg = avg_EV_of_dow_companies()
+        result = (221.90999999999997,)
+        self.assertEqual(avg, result)
+
+    def test_return_industry_and_its_total_EV(self):
+        industry_ev = return_industry_and_its_total_EV()
+        result = [('Broadcasting\xa0and\xa0entertainment', 172.31), ('Conglomerate', 482.95), ('Consumer products', 1217.87), ('Financial services', 73.86000000000001), ('Managed health care', 233.23), ('Manufacturing', 494.19000000000005), ('Oil & gas', 636.48), ('Pharmaceuticals', 775.82), ('Technology', 2260.95), ('Telecommunication', 309.64)]
+        self.assertEqual(industry_ev, result)

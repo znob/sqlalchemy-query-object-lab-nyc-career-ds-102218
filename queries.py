@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func
 from seed import Company
 from sqlalchemy.orm import sessionmaker
 
@@ -7,11 +7,11 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 def return_apple():
-    apple = session.query(Company).filter(Company.company=='Apple')[0]
+    apple = session.query(Company).filter(Company.company=='Apple').first()
     return apple
 
 def return_disneys_industry():
-    disney = session.query(Company).filter(Company.company=='Walt Disney')[0]
+    disney = session.query(Company).filter(Company.company=='Walt Disney').first()
     return disney.industry
 
 def return_list_of_company_objects_ordered_alphabetically_by_symbol():
@@ -39,9 +39,8 @@ def return_conglomerates_and_pharmaceutical_companies():
         arr.append(company.company)
     return arr
 
-def return_name_and_industry_of_top_three_EV_companies():
-    largest = session.query(Company).order_by(Company.enterprise_value.desc())[0:3]
-    arr = []
-    for co in largest:
-        arr.append({'name': co.company, 'industry': co.industry})
-    return arr
+def avg_EV_of_dow_companies():
+    return session.query(func.avg(Company.enterprise_value)).first()
+
+def return_industry_and_its_total_EV():
+    return session.query(Company.industry, func.sum(Company.enterprise_value)).group_by(Company.industry).all()
